@@ -1,4 +1,5 @@
 package week6;
+import java.io.IOException;
 import java.util.*;
 //import java.util.ArrayList;
 //import java.util.Scanner;
@@ -44,16 +45,45 @@ public class exercisesString {
     }
 
     protected static void reader(){
-        List<String> strings = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
-        while(true){
-            String str = input.nextLine();
-            if (str.isEmpty()){
-                break;
-            }
+        try {
+            Scanner input = new Scanner(System.in);
+            System.out.print("Enter number of rows: ");
+            int n = Integer.parseInt((input.nextLine()));
+            while (n != 0) {
+                try {
+                    String line = input.nextLine();
+                    String name = line.substring(line.indexOf('@') + 1, line.indexOf('|'));
+                    String age = line.substring(line.indexOf('#') + 1, line.indexOf('*'));
+                    System.out.printf("{%s} is {%s} years old!\n", name, age);
+                    n--;
 
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Index out of range!");
+                }
+            }
+        }
+        catch(NumberFormatException e){
+            System.out.println("Enter valid number!");
+        }
+        catch(StringIndexOutOfBoundsException e){
+            System.out.println("Index out of range!");
+        }
+        catch(Exception e){
+            System.out.println("Error:" + e.getMessage());
         }
     }
+
+    protected static void validName(){
+        Scanner input = new Scanner(System.in);
+        String str = input.nextLine();
+        List<String> names = new ArrayList<>(List.of(str.split(",")));
+        for(String name: names){
+            if (name.length() >= 3 && name.length() <=16 && name.matches(".*\\w*")){
+                System.out.println(name);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Glasni bukvi v niza broi: " + GlasniBukvi("Amuse bush enchalte"));
         System.out.println("Is palindrom: " + isPalindrom("lebel"));
@@ -61,5 +91,7 @@ public class exercisesString {
         System.out.println("Number starts with 08--------: " + isNumberValid("0872347818"));
         System.out.println("Password without numbers: " + NumbersToStars("AS7asd(9231)i324"));
         System.out.println("Is password valid: " + isPasswordValid("AS7asd(R"));
+        reader();
+        validName();
     }
 }
