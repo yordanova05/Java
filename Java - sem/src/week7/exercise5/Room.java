@@ -1,10 +1,10 @@
 package week7.exercise5;
 
 public class Room {
-    private int roomNumber;
-    private String roomType;
-    private float pricePerNight;
-    private int availableNights;
+    protected int roomNumber;
+    protected String roomType;
+    protected float pricePerNight;
+    protected int availableNights;
 
     public Room(){
 
@@ -41,20 +41,11 @@ public class Room {
         this.availableNights = availableNights;
     }
 
-    private boolean reserveRoom(int numNights) throws NotAvailableNightsException{
-        try{
-            if ( availableNights >= numNights){
-                availableNights = availableNights - numNights;
-                return true;
-            }
-            throw new NotAvailableNightsException("No available nights!");
+    protected boolean reserveRoom(int numNights) throws NotAvailableNightsException {
+        if (availableNights >= numNights) {
+            availableNights = availableNights - numNights;
+            return true;
         }
-        catch(NumberFormatException e){
-            System.out.println("Must enter a number!");
-        }
-        catch(Exception e){
-            System.out.println("Exception: " + e.getMessage());
-        }
-        return false;
+        throw new NotAvailableNightsException("No available nights!");
     }
 }

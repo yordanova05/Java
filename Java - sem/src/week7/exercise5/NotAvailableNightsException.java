@@ -5,8 +5,4 @@ public class NotAvailableNightsException extends Exception {
     {
         super(message);
     }
-    public  NotAvailableNightsException()
-    {
-        super("Not available nights!");
-    }
 }
