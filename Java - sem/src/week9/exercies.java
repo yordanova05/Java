@@ -3,6 +3,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class exercies {
+    public static List<Product> getProductsByCategory(List<Product> products, String category){
+        List<Product> result = products.stream().filter(p-> p.category.equals(category)).sorted(Comparator.comparing(p->p.price)).toList();
+        return result;
+    }
+
+    public static List<Product> getExpensiveProducts(List<Product> products, double minPrice){
+        List<Product> expencivesProducts = products.stream().filter(n->n.price > minPrice).sorted(Comparator.comparingDouble((Product p) -> p.price).reversed())
+                .toList();
+        return expencivesProducts;
+    }
     public static void main(String[] args){
         System.out.println("Exercise 1:");
         //exercise1
@@ -76,5 +86,23 @@ public class exercies {
                 System.out.println("Price: " + item.price);
             });
         });
+
+        //exercise9
+        List<Integer> listOfIntegers = List.of(5, 12, 8, 20, 13,14);
+        List<Integer> newListOfIntegers = listOfIntegers.stream().filter(n-> n%2 == 0 && n>10).sorted().toList();
+        for(Integer i: newListOfIntegers){
+            System.out.println(i);
+        }
+
+        //exercise10
+        List<Product> products = List.of(
+                new Product("phone",50.0,"device"),
+                new Product("iphone",1050.0,"device"),
+                new Product("HP",40.0,"tv")
+        );
+        List<Product> res = getProductsByCategory(products, "device");
+        res.forEach(prod->System.out.println(prod.name + " " + prod.price + " " + prod.category));
+        List<Product> res2 = getExpensiveProducts(products, 30.0);
+        res2.forEach(prod->System.out.println(prod.name + " " + prod.price + " " + prod.category));
     }
 }
