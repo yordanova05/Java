@@ -1,4 +1,5 @@
-package week9;
+package week9.exercise1;
+
 import java.util.ArrayList;
 import java.util.List;
 
